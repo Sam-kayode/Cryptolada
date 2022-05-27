@@ -5,7 +5,7 @@ import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 
 const { Text, Title } = Typography;
 const { option } = Select;
-
+const demoImage="https://i.ibb.co/Z11pcGG/cryptocurrency.png"
 const News = ({ simplified }) => {
   const { data: cryptoNews } = useGetCryptoNewsQuery({
     newsCategory: "CryptoCurrency",
@@ -21,7 +21,16 @@ const News = ({ simplified }) => {
           <Card hoverable className="news-card">
             <a href={news.url}>
               <div className="news-image-container">
-                <Title className="news-title" level={4}>{news.name}</Title>
+                <Title className="news-title" level={4}>
+                  {news.name}
+                </Title>
+                <img src={news?.image?.thumbnail?.contentUrl || demoImage} alt="" />
+              </div>
+              <p>{news.description>100?`${news.description.substring(0,100)}........`:news.description}</p>
+              <div className="provider-container">
+                <div>
+                  <Avatar src={news.provider[0]?.image?.thumbnail?.contentUrl || demoImage} alt="news"/>
+                </div>
               </div>
             </a>
           </Card>
