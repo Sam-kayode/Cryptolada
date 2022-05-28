@@ -15,7 +15,7 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 
-import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import { cryptoApi, useGetCryptoDetailsQuery } from "../services/cryptoApi";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -136,7 +136,7 @@ const CryptoDetails = () => {
         <Col className="other-stats-info">
           <Col className="coin-value-statistics-heading">
             <Title level={3} className="coin-details-heading">
-             Other Statistics
+              Other Statistics
             </Title>
             <p>An overview showing the stats of all Cryptocurrencies</p>
           </Col>
@@ -149,7 +149,30 @@ const CryptoDetails = () => {
               <Text className="stats">{value}</Text>
             </Col>
           ))}
-        </Col> 
+        </Col>
+      </Col>
+      <Col class=".coin-desc-link">
+        <Row className="coin-desc">
+          <Title level={3} className="coin-details-heading">
+            what is {cryptoDetails?.name}
+            {HTMLReactParser(cryptoDetails?.description)}
+          </Title>
+        </Row>
+        <Col className="coin-links">
+          <Title level={3} className="coin-details-heading">
+            {cryptoDetails?.name} Links
+          </Title>
+          {cryptoDetails.links.map((link) => (
+            <Row className="coin-link" key={link.name}>
+              <Title level={5} className="link-name">
+                {link.type}
+              </Title>
+              <a href={link.url} target="_blank" rel="noreferrer">
+                {link.name}
+              </a>
+            </Row>
+          ))}
+        </Col>
       </Col>
     </Col>
   );
