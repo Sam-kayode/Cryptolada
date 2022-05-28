@@ -16,6 +16,7 @@ import {
 } from "@ant-design/icons";
 
 import { cryptoApi, useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import LineChart from "./LineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
