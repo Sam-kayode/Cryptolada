@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
+// import Loader from './Loader';
 import { Col, Row, Typography, Select } from "antd";
 import {
   MoneyCollectOutlined,
@@ -14,9 +15,8 @@ import {
   NumberOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
-
-import { cryptoApi, useGetCryptoDetailsQuery } from "../services/cryptoApi";
 import LineChart from "./LineChart";
+import { cryptoApi, useGetCryptoDetailsQuery } from "../services/cryptoApi";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -25,6 +25,8 @@ const CryptoDetails = () => {
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+
+  if (isFetching) return "loading......";
 
   console.log(data);
   const cryptoDetails = data?.data?.coin;
