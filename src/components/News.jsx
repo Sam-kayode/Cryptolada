@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
-import momemnt from "moment";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 import moment from "moment";
@@ -30,7 +29,7 @@ const News = ({ simplified }) => {
             className="select-news"
             placeholder="select a crypto"
             optionFilterProp="children"
-            onChange={(value) => console.log(value)}
+            onChange={(value) =>setNewsCategory(value)}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }

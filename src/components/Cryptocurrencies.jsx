@@ -10,20 +10,22 @@ const Cryptocurrencies = ({ simplified }) => {
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  console.log("old");
 
   useEffect(() => {
-    console.log("new");
     const filteredData = cryptosList?.data?.coins.filter((coin) =>
       coin.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
 
+
+console.log(cryptos)
+
+
   if (isFetching) return "Loading.....";
   const iterate = cryptos?.map((currency) => (
-    <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
-      <Link to={`/crypto/${currency.id}`}>
+    <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.uuid}>
+      <Link to={`/crypto/${currency.uuid}`}>
         <Card
           title={`${currency.rank}. ${currency.name}`}
           extra={<img className="crypto-image" src={currency.iconUrl} alt="" />}
