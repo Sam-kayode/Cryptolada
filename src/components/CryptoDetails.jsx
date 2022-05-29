@@ -16,7 +16,10 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import LineChart from "./LineChart";
-import { cryptoApi, useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/cryptoApi";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -25,10 +28,14 @@ const CryptoDetails = () => {
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    coinId,
+    timePeriod,
+  });
 
   if (isFetching) return "loading......";
 
-  console.log(data);
+  console.log(coinHistory);
   const cryptoDetails = data?.data?.coin;
   console.log(cryptoDetails);
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
@@ -117,7 +124,7 @@ const CryptoDetails = () => {
         ))}
       </Select>
       {/* {line chart laeter} */}
-
+      <LineChart coinHistory={coinHistory} currentPrice={millify(cryptoDetails.price)} coinName={cryptoDetails.name} />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
@@ -154,7 +161,7 @@ const CryptoDetails = () => {
           ))}
         </Col>
       </Col>
-      <Col class=".coin-desc-link">
+      <Col className="coin-desc-link">
         <Row className="coin-desc">
           <Title level={3} className="coin-details-heading">
             what is {cryptoDetails?.name}
@@ -167,7 +174,7 @@ const CryptoDetails = () => {
           </Title>
           {cryptoDetails.links.map((link) => (
             <Row className="coin-link" key={link.name}>
-              <Title level={5} className="link-name">
+              <Title level={3} className="link-name">
                 {link.type}
               </Title>
               <a href={link.url} target="_blank" rel="noreferrer">
