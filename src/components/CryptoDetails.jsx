@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-// import Loader from './Loader';
+import Loader from './Loader';
 import { Col, Row, Typography, Select } from "antd";
 import {
   MoneyCollectOutlined,
@@ -33,7 +33,6 @@ const CryptoDetails = () => {
     timePeriod,
   });
 
-  if (isFetching) return "loading......";
 
   console.log(coinHistory);
   const cryptoDetails = data?.data?.coin;
@@ -101,6 +100,8 @@ const CryptoDetails = () => {
       icon: <ExclamationCircleOutlined />,
     },
   ];
+
+  if (isFetching) return <Loader />;
 
   return (
     <Col className="coin-detail-container">
