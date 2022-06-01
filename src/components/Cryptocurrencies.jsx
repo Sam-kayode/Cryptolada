@@ -36,6 +36,7 @@ const Cryptocurrencies = ({ simplified }) => {
       </Link>
     </Col>
   ));
+  if (isFetching) return <Loader />;  
 
   return (
     <>
