@@ -101,7 +101,6 @@ const CryptoDetails = () => {
     },
   ];
 
-  if (isFetching) return <Loader />;
 
   return (
     <Col className="coin-detail-container">
