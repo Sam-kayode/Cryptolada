@@ -3,6 +3,7 @@ import { Select, Typography, Row, Col, Avatar, Card } from "antd";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 import moment from "moment";
+import Loader from "./Loader";
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -18,7 +19,7 @@ const News = ({ simplified }) => {
   });
   console.log(cryptoNews);
 
-  if (!cryptoNews?.value) return "Loading.......";
+  if (!cryptoNews?.value) return <Loader />;
 
   return (
     <Row gutter={[24, 24]}>
@@ -29,7 +30,7 @@ const News = ({ simplified }) => {
             className="select-news"
             placeholder="select a crypto"
             optionFilterProp="children"
-            onChange={(value) =>setNewsCategory(value)}
+            onChange={(value) => setNewsCategory(value)}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
